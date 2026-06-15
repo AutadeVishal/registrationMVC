@@ -5,7 +5,10 @@ import org.vishalsoft.registrationmvc.utils.DatabaseConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class StudentDAO  {
     public int registerStudent(Student student){
@@ -32,5 +35,29 @@ public class StudentDAO  {
             exception.printStackTrace();
             return 0;
         }
+    }
+    public List<Student> getStudentList(){
+        List<Student>studentList=new ArrayList<>();
+        Connection con;
+        try{
+
+            con= DatabaseConnection.getConnection();
+            PreparedStatement ps=con.prepareStatement("SELECT * from students");
+            ResultSet rs=ps.executeQuery();
+            while(rs.next()){
+
+                String name=(rs.getString("name"));
+                String email=(rs.getString("email"));
+                String city=(rs.getString("city"));
+                Student student=new Student(name,email,city);
+                studentList.add(student);
+            }
+
+        }
+        catch (SQLException exp){
+            exp.printStackTrace();
+        }
+        return studentList;
+
     }
 }

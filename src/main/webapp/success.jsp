@@ -13,6 +13,7 @@
 <body>
 
 <%String name= (String)session.getAttribute("name");%>
-<h1>  <%= name %> Successfully Registered as a studnet </h1>
+<h1>  <%= name %> Successfully Registered as a Student </h1>
+<a href="./StudentsListController">View List of Students</a>
 </body>
 </html>
